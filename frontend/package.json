@@ -1,0 +1,48 @@
+{
+  "name": "production_mangement",
+  "version": "1.0.0",
+  "author": "Abu Saleh Md Musa",
+  "description": "Package for the GQA production monitoring application",
+  "scripts": {
+    "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
+    "tsc": "tsc",
+    "tsc:w": "tsc -w",
+    "lite": "lite-server",
+    "typings": "typings",
+    "postinstall": "typings install"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@angular/common": "~2.2.0",
+    "@angular/compiler": "~2.2.0",
+    "@angular/core": "~2.2.0",
+    "@angular/forms": "~2.2.0",
+    "@angular/http": "~2.2.0",
+    "@angular/platform-browser": "~2.2.0",
+    "@angular/platform-browser-dynamic": "~2.2.0",
+    "@angular/router": "~3.2.0",
+    "@angular/upgrade": "~2.2.0",
+    "angular-in-memory-web-api": "~0.1.15",
+    "bootstrap": "^3.3.6",
+    "core-js": "^2.4.1",
+    "es6-shim": "^0.35.0",
+    "jquery": "^3.1.1",
+    "moment": "^2.16.0",
+    "ng2-bs3-modal": "^0.10.4",
+    "ng2-datepicker": "^2.0.0-dev5",
+    "reflect-metadata": "^0.1.8",
+    "rxjs": "5.0.0-beta.12",
+    "socket.io-client": "^1.5.1",
+    "systemjs": "0.19.39",
+    "zone.js": "^0.6.25"
+  },
+  "devDependencies": {
+    "@types/core-js": "^0.9.34",
+    "@types/node": "^6.0.45",
+    "concurrently": "^3.0.0",
+    "lite-server": "^2.2.2",
+    "typescript": "^2.0.3",
+    "typings": "^0.7.12"
+  },
+  "repository": {}
+}

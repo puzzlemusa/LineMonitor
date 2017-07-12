@@ -1,0 +1,16 @@
+[
+  {
+    "productionLineId": 1,
+    "productionLineName": "Hamba",
+    "productionType": "Shirt",
+    "productionGoal": 400,
+    "produced": 300
+  },
+  {
+    "productionLineId": 2,
+    "productionLineName": "Vombol",
+    "productionType": "Pant",
+    "productionGoal": 300,
+    "produced": 700
+  }
+]

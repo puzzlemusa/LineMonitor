@@ -1,0 +1,138 @@
+<div style="height: auto" *ngIf="line">
+    <div style="height: 50px; background-color: #337AB7; text-align: center;" >
+        <h2 style="padding-top: 10px">{{line.lineName}}</h2>
+    </div>
+
+    <div style="height: 50px; background-color: aqua; margin-top: 10px">
+        <div style="padding-left: 50px; float: left;">
+            <h2 style="margin: auto; padding-top: 10px">
+                {{momentDate.format('ll')}}
+            </h2>
+        </div>
+        <div style="padding-right: 50px; float: right">
+            <h2 style="margin: auto; padding-top: 10px">
+                {{ _timeNotifyService.hourChanged | async }}:{{ _timeNotifyService.minuteChanged | async }}:{{ _timeNotifyService.secondChanged | async }}
+            </h2>
+        </div>
+    </div>
+
+    <div id="slideshow" style="font-size: 40px; height: 460px">
+        <div class='panel-body' style="background-color: forestgreen">
+            <div class='table-responsive'>
+                <table class='table table-bordered' *ngIf="line && dateInfo" style="text-align: center">
+                    <thead>
+                    <tr>
+                        <th style="text-align: center">P. Hour</th>
+                        <th style="text-align: center">P.Target /<br/>
+                            Hour</th>
+                        <th style="text-align: center">P. Target /<br/>
+                            Day</th>
+                        <th style="text-align: center; vertical-align: middle">😊</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr >
+                        <td>{{dateInfo.productionHour}}</td>
+                        <td>{{hourlyInfo.goal}}</td>
+                        <td>{{hourlyInfo.goal * dateInfo.productionHour}}</td>
+                        <td></td>
+                    </tr>
+                    <tr style="font-weight: bold">
+                        <td >Related Hour</td>
+                        <td colspan="2">P. Achieved</td>
+                        <td >Variation</td>
+                    </tr>
+                    <tr >
+                        <td>{{hourlyInfo.startHour % 12}}-{{hourlyInfo.endHour % 12}}</td>
+                        <td>Hourly</td>
+                        <td>{{hourlyInfo.completed}}</td>
+                        <td><{{hourlyInfo.goal - hourlyInfo.completed}}</td>
+                    </tr>
+                    <tr >
+                        <td>{{hourEng}}</td>
+                        <td>Total</td>
+                        <td>{{totalCompleted}}</td>
+                        <td><{{totalGoal - totalCompleted}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class='panel-body' style="background-color: cornflowerblue">
+            <div class='table-responsive'>
+                <table class='table table-bordered' *ngIf="line && dateInfo" style="text-align: center">
+                    <thead>
+                    <tr >
+                        <th style="text-align: center">P. Hour</th>
+                        <th colspan="2" style="text-align: center">😊</th>
+                        <th style="text-align: center">Efficiency</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr >
+                        <td>{{dateInfo.productionHour}}</td>
+                        <td>{{hourlyInfo.goal}}</td>
+                        <td>{{hourlyInfo.goal * dateInfo.productionHour}}</td>
+                        <td>{{planedEfficiency}}%</td>
+                    </tr>
+                    <tr style="font-weight: bold">
+                        <td>Related Hour</td>
+                        <td colspan="2">Efficiency Achieved</td>
+                        <td>Variation</td>
+                    </tr>
+                    <tr>
+                        <td>{{hourlyInfo.startHour % 12}}-{{hourlyInfo.endHour % 12}}</td>
+                        <td>Hourly</td>
+                        <td>{{hourlyEfficiency}}%</td>
+                        <td><{{(planedEfficiency - hourlyEfficiency).toFixed(2)}}%</td>
+                    </tr>
+                    <tr>
+                        <td>{{hourEng}}</td>
+                        <td>AVG</td>
+                        <td>{{avgEfficiency}}%</td>
+                        <td>{{(planedEfficiency - avgEfficiency).toFixed(2)}}%</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class='panel-body' style="background-color: darksalmon">
+            <div class='table-responsive'>
+                <table class='table table-bordered' *ngIf="line && dateInfo" style="text-align: center">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center">P. Hour</th>
+                            <th colspan="2" style="text-align: center;">😊</th>
+                            <th style="text-align: center">DHU<</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr >
+                        <td>{{dateInfo.productionHour}}</td>
+                        <td>{{hourlyInfo.goal}}</td>
+                        <td>{{hourlyInfo.goal * dateInfo.productionHour}}</td>
+                        <td>{{dateInfo.planDHULevel}}%</td>
+                    </tr>
+                    <tr style="font-weight: bold">
+                        <td >Related Hour</td>
+                        <td colspan="2">DHU Achieved</td>
+                        <td>Variation</td>
+                    </tr>
+                    <tr >
+                        <td>{{hourlyInfo.startHour % 12}}-{{hourlyInfo.endHour % 12}}</td>
+                        <td>Hourly</td>
+                        <td>{{hourlyInfo.dhu}}%</td>
+                        <td>{{hourlyInfo.dhu - dateInfo.planDHULevel > 0 ? '+' : ''}}{{hourlyInfo.dhu - dateInfo.planDHULevel}}%</td>
+                    </tr>
+                    <tr >
+                        <td>{{hourEng}}</td>
+                        <td>AVG</td>
+                        <td>{{avgDhu}}%</td>
+                        <td>{{avgDhu - dateInfo.planDHULevel > 0 ? '+' : ''}}{{(avgDhu - dateInfo.planDHULevel).toFixed(2)}}%</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

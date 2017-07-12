@@ -1,0 +1,15 @@
+backend/node_modules/
+Backend/CucumberReports/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+### Angular 2 App ###
+logs/*
+*.log
+!.gitkeep
+frontend/node_modules/
+frontend/typings/
+.DS_Store

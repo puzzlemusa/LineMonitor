@@ -1,0 +1,164 @@
+<div>
+    <nav class='navbar navbar-default'>
+        <div class='container-fluid'>
+            <a class='navbar-brand'>{{pageTitle}}</a>
+            <ul class='nav navbar-nav'>
+                <li><a [routerLink]="['../../welcome']">Home</a></li>
+                <li><a [routerLink]="['../../productionLines']">Production Lines</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<div class='panel panel-primary' *ngIf='line'>
+    <div class='panel-heading' style='font-size:large'>
+        {{ pageTitle + ': ' + line.lineName }}
+    </div>
+    <div class='panel-body'>
+        <div class='row'>
+            <div class='col-md-6'>
+                <div class='row' *ngIf='line.lineType=="Production"'>
+                    <div class='col-md-3'>Name:</div>
+                    <div class='col-md-6'>
+                        <input type='text'
+                               [(ngModel)]='line.lineName'/>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col-md-3'>Line Type:</div>
+                    <div class='col-md-6'>
+                        {{line.lineType}}
+                    </div>
+                </div>
+                <div class='row' style="margin-top: 3px">
+                    <div class='col-md-3'>
+                        <button type="button" class="btn btn-default" (click)="validationModal.open()">Update Date Info</button>
+                    </div>
+                    <div class='col-md-6'>
+                        <button class='btn btn-primary' *ngIf='line.lineType=="Production"' (click)= 'updateProductionLine()'>
+                            Update Line
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='panel-body' *ngIf='dateInfo.planEfficiency'>
+        <div class='row'>
+            <div class='col-md-3'>Select Hour:</div>
+            <div class='col-md-6'>
+                <select #t (change)="selectedHourChanged(t.value)">
+                    <option *ngFor="let hour of availableHours" value= {{hour}}>{{hour}}</option>
+                </select>
+            </div>
+        </div>
+        <div class='row'>
+            <div class='col-md-3'>Goal:</div>
+            <div class='col-md-6'>
+                {{(dateInfo.goal / dateInfo.productionHour).toFixed(2)}}
+            </div>
+        </div>
+        <div class='row'>
+            <div class='col-md-3'>Competed:</div>
+            <div class='col-md-6'>
+                <input type='number' [(ngModel)]='completed'/>
+            </div>
+        </div>
+        <div class='row' *ngIf='line.lineType=="Production"'>
+            <div class='col-md-3'>DHU:</div>
+            <div class='col-md-6'>
+                <input type='text'
+                       [(ngModel)]='dhu'/>
+            </div>
+        </div>
+        <div class='row'>
+            <div class='col-md-3'>
+                <button class='btn btn-primary' (click)= 'createHourlyInfo()'>
+                    Create Hour
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class='table-responsive'>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Hour</th>
+                    <th>Goal</th>
+                    <th>Completed</th>
+                    <th *ngIf='line.lineType=="Production"'>DHU</th>
+                    <th></th>
+                    <th></th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let hourlyInfo of hourlyInfos">
+                    <td>{{hourlyInfo.startHour}} - {{hourlyInfo.endHour}}</td>
+                    <td>{{hourlyInfo.goal}} </td>
+                    <td><input type='number'
+                               [(ngModel)]='hourlyInfo.completed'/></td>
+                    <td *ngIf='line.lineType=="Production"'><input type='number'
+                               [(ngModel)]='hourlyInfo.dhu'/></td>
+                    <td><button class='btn btn-primary' (click)= "updateHourlyInfo(hourlyInfo)"> Update </button></td>
+                    <td><button class='btn btn-primary' (click)= "deleteHourlyInfo(hourlyInfo)"> Delete </button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="panel-footer">
+        <a class="btn btn-default" (click)='onBack()' style="width:80px">
+            <i class="glyphicon glyphicon-chevron-left"></i>Back
+        </a>
+        <button class='btn btn-primary' (click)= 'showcaseProductionLine()'>
+            Showcase
+        </button>
+    </div>
+</div>
+
+<modal #validationModal>
+    <form #modalForm="ngForm">
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">Update Date info</h4>
+        </modal-header>
+        <modal-body>
+            <div class="form-group">
+                <label >Select date</label>
+                <div class='row' style="padding-top: 10px">
+                    <div class='col-md-3'>
+                        <datepicker-ionic singleSelect (selectDate)="momentDate" ([ngModel])='momentDate' [expanded]='true' (onDateChange)="valueChanged($event)" ></datepicker-ionic>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="productionHour">Production Hour</label>
+                <input type="number" class="form-control" required [(ngModel)]="dateInfo.productionHour" name="productionHour" id="productionHour">
+            </div>
+            <div class="form-group">
+                <label for="availableWorker">Worker available</label>
+                <input type="number" class="form-control" required [(ngModel)]="dateInfo.workers" name="availableWorker" id="availableWorker">
+            </div>
+            <div class="form-group">
+                <label for="minutePerProduct">SAM</label>
+                <input type="number" class="form-control" required [(ngModel)]="dateInfo.minutesPerProduct" name="minutePerProduct" id="minutePerProduct">
+            </div>
+            <div class="form-group" *ngIf='lineType!="Production"'>
+                <label for="goal">Day Goal</label>
+                <input type="number" class="form-control" required [(ngModel)]="dateInfo.goal" name="goal" id="goal">
+            </div>
+            <div class="form-group" *ngIf='lineType=="Production"'>
+                <label for="goal">Planned Efficiency</label>
+                <input type="number" class="form-control" required [(ngModel)]="dateInfo.planEfficiency" name="efficiency" id="efficiency">
+            </div>
+            <div class="form-group">
+                <label for="planDHULevel">Plan DHU Level</label>
+                <input type="number" class="form-control" required [(ngModel)]="dateInfo.planDHULevel" name="planDHULevel" id="planDHULevel">
+            </div>
+        </modal-body>
+        <modal-footer>
+            <button type="button" class="btn btn-default" data-dismiss="modal" (click)="validationModal.dismiss()">Cancel</button>
+            <button type="button" class="btn btn-primary" [disabled]="!modalForm.valid" (click)="validationModal.close(); createDateInfo()">Save</button>
+        </modal-footer>
+    </form>
+</modal>

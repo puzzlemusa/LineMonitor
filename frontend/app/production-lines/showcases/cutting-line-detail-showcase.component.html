@@ -1,0 +1,62 @@
+<div style="height: auto;" *ngIf="line">
+    <!--<div style="height: 100px; background-color: #337AB7; padding-top: 10px; text-align: center;" >-->
+        <!--<h1>{{line.lineName}}</h1>-->
+    <!--</div>-->
+
+    <div style="height: 70px; background-color: aqua; margin-top: 2px">
+        <div style="padding-left: 50px; padding-top: 1px; float: left">
+            <h2>
+                {{momentDate.format('ll')}}
+            </h2>
+        </div>
+        <div style="padding-right: 50px; padding-top: 1px; float: right">
+            <h2>
+                {{ _timeNotifyService.hourChanged | async }}:{{ _timeNotifyService.minuteChanged | async }}:{{ _timeNotifyService.secondChanged | async }}
+            </h2>
+        </div>
+    </div>
+
+    <div class='panel-body' style="background-color: navy; font-size: 42px; color: black">
+        <div class='table-responsive'>
+            <table class='table table-bordered' *ngIf="line && dateInfo">
+                <thead style="background-color: seagreen">
+                <tr>
+                    <th>Planned<br/>
+                        P. Hour</th>
+                    <th colspan="2">In Put<br/>
+                        Target / Day</th>
+                    <th>Plan<br/>
+                        Performance</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr style="background-color: seagreen">
+                        <td>{{dateInfo.productionHour}}</td>
+                        <td colspan="2">{{hourlyInfo.goal * dateInfo.productionHour}}</td>
+                        <td>100%</td>
+                    </tr>
+                    <tr style="background-color: navy">
+                        <td></td>
+                        <td colspan="2"></td>
+                        <td></td>
+                    </tr>
+                    <tr style="background-color: cadetblue; font-weight: bold">
+                        <td>{{hourEng}} Hour</td>
+                        <td>Completed</td>
+                        <td>Bal</td>
+                        <td>Performance</td>
+                    </tr>
+                    <tr style="background-color: cadetblue">
+                        <td>{{hourlyInfo.startHour % 12}}-{{hourlyInfo.endHour % 12}}</td>
+                        <td>{{totalCompleted}}</td>
+                        <td>{{totalGoal - totalCompleted}}</td>
+                        <td>{{performance}}%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div style="height: 70px; background-color: burlywood; text-align: center;" >
+        <h1 style="padding-top: 10px; font-size: 52px">Efficiency: {{(performance * .6).toFixed(2)}}%</h1>
+    </div>
+</div>
