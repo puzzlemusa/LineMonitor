@@ -30,6 +30,7 @@
             'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
             'socket.io-client':          'npm:socket.io-client/socket.io.js',
             'ng2-datepicker':            'npm:ng2-datepicker/bundle/ng2-datepicker.umd.js',
+            'ng2-charts':                'npm:ng2-charts/bundles/ng2-charts.umd.js',
             'moment':                    'npm:moment/moment.js',
             'ng2-bs3-modal': 'node_modules/ng2-bs3-modal'
         },

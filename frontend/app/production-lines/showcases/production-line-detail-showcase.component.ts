@@ -43,6 +43,18 @@ export class ProductionLineDetailShowcaseComponent implements OnInit, AfterViewI
     totalCompleted  : number;
     hourEng : string;
 
+    public barChartOptions:any = {
+        scaleShowVerticalLines: false,
+        responsive: true
+    };
+    public barChartLabels:string[] = [];
+    public barChartType:string = 'bar';
+    public barChartLegend:boolean = true;
+
+    public barChartData:any[] = [
+        {data: [], label: 'Production Achieved'}
+    ];
+
     constructor(private _zone: NgZone,
                 private _route: ActivatedRoute,
                 private _productionLineService: ProductionLineService,
@@ -77,16 +89,16 @@ export class ProductionLineDetailShowcaseComponent implements OnInit, AfterViewI
     }
 
     ngAfterViewInit() {
-        $("#slideshow > div:gt(0)").hide();
-
-        setInterval(function() {
-            $('#slideshow > div:first')
-                .fadeOut(1000)
-                .next()
-                .fadeIn(1000)
-                .end()
-                .appendTo('#slideshow');
-        }, 5000);
+        // $("#slideshow > div:gt(0)").hide();
+        //
+        // setInterval(function() {
+        //     $('#slideshow > div:first')
+        //         .fadeOut(1000)
+        //         .next()
+        //         .fadeIn(1000)
+        //         .end()
+        //         .appendTo('#slideshow');
+        // }, 5000);
     }
 
     getLine(id: string) {
@@ -129,11 +141,19 @@ export class ProductionLineDetailShowcaseComponent implements OnInit, AfterViewI
         if( this.hourlyInfos) {
             this.totalGoal = 0;
             this.totalCompleted = 0;
-            var totalEfficiency = 0;
-            var totalDhu = 0;
+            let totalEfficiency = 0;
+            let totalDhu = 0;
+
+            this.barChartLabels = [];
+            this.barChartData[0].data = [];
+
             for (var i = 0; i < this.hourlyInfos.length; i++) {
                 this.totalCompleted += this.hourlyInfos[i].completed;
                 this.totalGoal += this.hourlyInfos[i].goal;
+                //efficiencyChartLabel.push(this.hourlyInfos[i].startHour + ' ' + this.hourlyInfos[i].endHour);
+                //efficiencyChartData.push(this.hourlyInfos[i].completed);
+                this.barChartLabels.push(this.hourlyInfos[i].startHour + ' - ' + this.hourlyInfos[i].endHour);
+                this.barChartData[0].data.push(this.hourlyInfos[i].completed.toString());
 
                 var efficiency = (this.hourlyInfos[i].completed * +this.planedEfficiency) / (this.hourlyInfos[i].goal);
                 if(this.hourlyInfos[i].startHour === this.hour) {

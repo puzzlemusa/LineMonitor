@@ -25,6 +25,7 @@ var welcome_component_1 = require('./home/welcome.component');
 var ng2_datepicker_1 = require("ng2-datepicker");
 var ng2_bs3_modal_1 = require('ng2-bs3-modal/ng2-bs3-modal');
 var hourToEngConverter_1 = require("./production-lines/converter/hourToEngConverter");
+var ng2_charts_1 = require("ng2-charts");
 var appRoutes = [
     { path: '', redirectTo: 'welcome', pathMatch: 'full' },
     { path: 'welcome', component: welcome_component_1.WelcomeComponent },
@@ -45,6 +46,7 @@ var AppModule = (function () {
                 http_1.HttpModule,
                 ng2_datepicker_1.DatePickerModule,
                 ng2_bs3_modal_1.Ng2Bs3ModalModule,
+                ng2_charts_1.ChartsModule,
                 router_1.RouterModule.forRoot(appRoutes)
             ],
             declarations: [

@@ -16,6 +16,7 @@ import { WelcomeComponent } from './home/welcome.component'
 import { DatePickerModule } from "ng2-datepicker";
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { HourToEngConverter } from "./production-lines/converter/hourToEngConverter";
+import {ChartsModule} from "ng2-charts";
 
 const appRoutes: Routes = [
     { path: '', redirectTo: 'welcome', pathMatch: 'full' },
@@ -35,6 +36,7 @@ const appRoutes: Routes = [
         HttpModule,
         DatePickerModule,
         Ng2Bs3ModalModule,
+        ChartsModule,
         RouterModule.forRoot(appRoutes)
     ],
     declarations: [
