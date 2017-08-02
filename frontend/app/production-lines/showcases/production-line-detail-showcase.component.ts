@@ -58,7 +58,16 @@ export class ProductionLineDetailShowcaseComponent implements OnInit, AfterViewI
         {data: [], label: 'Efficiency'}
     ];
     public barChartDataDHU:any[] = [
-        {data: [], label: 'Production Achieved'}
+        {data: [], label: 'DHU Achieved'}
+    ];
+    public barChartColorsProduction:any[] = [
+        {backgroundColor: 'rgba(34,139,34,0.5)'}
+    ];
+    public barChartColorsEfficiency:any[] = [
+        {backgroundColor: 'rgba(100,149,237,0.5)'}
+    ];
+    public barChartColorsDHU:any[] = [
+        {backgroundColor: 'rgba(233,150,122,0.5)'}
     ];
 
     constructor(private _zone: NgZone,

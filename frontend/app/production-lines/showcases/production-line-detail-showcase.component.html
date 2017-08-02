@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    <div id="slideshow" style="font-size: 40px; height: 460px">
+    <div id="slideshow" style="font-size: 40px; height: 480px">
         <div class='panel-body' style="background-color: forestgreen">
             <div class='table-responsive'>
                 <table class='table table-bordered' *ngIf="line && dateInfo" style="text-align: center">
@@ -63,7 +63,8 @@
                         [labels]="barChartLabels"
                         [options]="barChartOptions"
                         [legend]="barChartLegend"
-                        [chartType]="barChartType"></canvas>
+                        [chartType]="barChartType"
+                        [colors]="barChartColorsProduction"></canvas>
             </div>
         </div>
         <div class='panel-body' style="background-color: cornflowerblue">
@@ -111,7 +112,8 @@
                         [labels]="barChartLabels"
                         [options]="barChartOptions"
                         [legend]="barChartLegend"
-                        [chartType]="barChartType"></canvas>
+                        [chartType]="barChartType"
+                        [colors]="barChartColorsEfficiency"></canvas>
             </div>
         </div>
         <div class='panel-body' style="background-color: darksalmon">
@@ -159,7 +161,8 @@
                         [labels]="barChartLabels"
                         [options]="barChartOptions"
                         [legend]="barChartLegend"
-                        [chartType]="barChartType"></canvas>
+                        [chartType]="barChartType"
+                        [colors]="barChartColorsDHU"></canvas>
             </div>
         </div>
     </div>

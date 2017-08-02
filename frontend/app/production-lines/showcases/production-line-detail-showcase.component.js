@@ -48,7 +48,16 @@ var ProductionLineDetailShowcaseComponent = (function () {
             { data: [], label: 'Efficiency' }
         ];
         this.barChartDataDHU = [
-            { data: [], label: 'Production Achieved' }
+            { data: [], label: 'DHU Achieved' }
+        ];
+        this.barChartColorsProduction = [
+            { backgroundColor: 'rgba(34,139,34,0.5)' }
+        ];
+        this.barChartColorsEfficiency = [
+            { backgroundColor: 'rgba(100,149,237,0.5)' }
+        ];
+        this.barChartColorsDHU = [
+            { backgroundColor: 'rgba(233,150,122,0.5)' }
         ];
         this.socket = io.connect('http://localhost:3000');
         this.socket.on('hourUpdated', function (data) {
